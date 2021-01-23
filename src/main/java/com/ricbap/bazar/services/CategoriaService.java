@@ -22,6 +22,11 @@ public class CategoriaService {
 				  "Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 	
+	public Categoria insert(Categoria obj) {
+		obj.setId(null); // <--- O id tem que estar null para inserir uma nova categoria
+		return repo.save(obj);
+	}
+	
 
 
 }
