@@ -1,6 +1,7 @@
 package com.ricbap.bazar.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ricbap.bazar.domain.Categoria;
+import com.ricbap.bazar.dto.CategoriaDTO;
 import com.ricbap.bazar.services.CategoriaService;
 
 @RestController
@@ -50,6 +52,12 @@ public class CategoriaResource {
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<CategoriaDTO> listDto = service.findAll();
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 }
