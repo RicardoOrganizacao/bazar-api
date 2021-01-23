@@ -27,6 +27,11 @@ public class CategoriaService {
 		return repo.save(obj);
 	}
 	
+	public Categoria update(Categoria obj) {
+		find(obj.getId()); // <-- Chama o metodo find, caso o objeto com esse id nao exista ele lança uma exceção
+		return repo.save(obj);
+	}
+	
 
 
 }
