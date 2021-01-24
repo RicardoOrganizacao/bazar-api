@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -46,11 +47,12 @@ public class CategoriaService {
 	}
 	
 	public Categoria update(CategoriaDTO objDto) {
-		find(objDto.getId()); // <-- Chama o metodo find, caso o objeto com esse id nao exista ele lança uma exceção
-		Categoria obj = toEntity(objDto);
-		return repo.save(obj);
+		Categoria newObj = find(objDto.getId()); // <-- Chama o metodo find, caso o objeto com esse id nao exista ele lança uma exceção
+		BeanUtils.copyProperties(objDto, newObj, "codigo");
+		//Categoria obj = toEntity(objDto);
+		return repo.save(newObj);
 	}
-	
+		
 	public void delete(Integer id) {
 		find(id);
 		try {

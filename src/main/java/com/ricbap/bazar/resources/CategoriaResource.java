@@ -57,7 +57,7 @@ public class CategoriaResource {
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody CategoriaDTO objDto) {
 		objDto.setId(id); // <--- Garantir que o objeto tenha o id
-		Categoria obj = service.update(objDto);
+		service.update(objDto);
 		return ResponseEntity.noContent().build(); // 204 - Conteudo vazio
 	}
 	
