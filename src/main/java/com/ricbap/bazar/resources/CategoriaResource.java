@@ -3,6 +3,8 @@ package com.ricbap.bazar.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -35,18 +37,27 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	/*
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody Categoria obj) {
+	public ResponseEntity<Void> insert(@RequestBody CategoriaDTO objDto) {		
 		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	} */
+	
+	@PostMapping
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto) {		
+		Categoria obj = service.insert(objDto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody Categoria obj) {
-		obj.setId(id); // <--- Garantir que o objeto tenha o id
-		obj = service.update(obj);
+	public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody CategoriaDTO objDto) {
+		objDto.setId(id); // <--- Garantir que o objeto tenha o id
+		Categoria obj = service.update(objDto);
 		return ResponseEntity.noContent().build(); // 204 - Conteudo vazio
 	}
 	

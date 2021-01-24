@@ -33,14 +33,21 @@ public class CategoriaService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				  "Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
-	
+	/*
 	public Categoria insert(Categoria obj) {
 		obj.setId(null); // <--- O id tem que estar null para inserir uma nova categoria
 		return repo.save(obj);
+	}*/
+	
+	public Categoria insert(CategoriaDTO objDto) {
+		objDto.setId(null); // <--- O id tem que estar null para inserir uma nova categoria
+		Categoria obj = toEntity(objDto);
+		return repo.save(obj);
 	}
 	
-	public Categoria update(Categoria obj) {
-		find(obj.getId()); // <-- Chama o metodo find, caso o objeto com esse id nao exista ele lança uma exceção
+	public Categoria update(CategoriaDTO objDto) {
+		find(objDto.getId()); // <-- Chama o metodo find, caso o objeto com esse id nao exista ele lança uma exceção
+		Categoria obj = toEntity(objDto);
 		return repo.save(obj);
 	}
 	
@@ -79,6 +86,15 @@ public class CategoriaService {
 	
 	private CategoriaDTO toModel(Categoria obj) {
 		return modelMapper.map(obj, CategoriaDTO.class);
+	}
+	
+	/*
+	private Categoria fromDto(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
+	} */
+	
+	private Categoria toEntity(CategoriaDTO objDto) {
+		return modelMapper.map(objDto, Categoria.class);
 	}
 
 
