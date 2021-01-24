@@ -8,4 +8,6 @@ import com.ricbap.bazar.domain.Categoria;
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
 
+
+
 }

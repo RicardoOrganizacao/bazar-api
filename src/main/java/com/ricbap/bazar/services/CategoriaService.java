@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.ricbap.bazar.domain.Categoria;
@@ -52,13 +55,23 @@ public class CategoriaService {
 	
 	public List<CategoriaDTO> findAll() {
 		List<Categoria> list = repo.findAll();
-		List<CategoriaDTO> listDto = toCollectionMode(list);
-		//List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
-				
+		List<CategoriaDTO> listDto = toCollectionModel(list);
+		//List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());				
 		return listDto;
 	}
 	
-	private List<CategoriaDTO> toCollectionMode(List<Categoria> list) {
+	public Page<CategoriaDTO> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		Page<Categoria> list =  repo.findAll(pageRequest);
+		Page<CategoriaDTO> listDto = toCollectionModelPage(list);
+		return listDto;
+	} 
+	
+	private Page<CategoriaDTO> toCollectionModelPage(Page<Categoria> list) {
+		return list.map(obj -> toModel(obj));
+	}
+	
+	private List<CategoriaDTO> toCollectionModel(List<Categoria> list) {
 		return list.stream()
 				.map(obj -> toModel(obj))
 				.collect(Collectors.toList());
