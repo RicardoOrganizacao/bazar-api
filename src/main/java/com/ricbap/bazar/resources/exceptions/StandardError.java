@@ -1,6 +1,7 @@
 package com.ricbap.bazar.resources.exceptions;
 
 import java.io.Serializable;
+import java.time.OffsetDateTime;
 
 public class StandardError implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -8,16 +9,16 @@ public class StandardError implements Serializable {
 	
 	private Integer status;
 	private String msg;
-	private Long timeStamp;
+	private OffsetDateTime dataErro;
 	
 	
 	public StandardError() {}
 
-	public StandardError(Integer status, String msg, Long timeStamp) {
+	public StandardError(Integer status, String msg, OffsetDateTime dataErro) {
 		super();
 		this.status = status;
 		this.msg = msg;
-		this.timeStamp = timeStamp;
+		this.dataErro = dataErro;
 	}
 	
 
@@ -33,11 +34,11 @@ public class StandardError implements Serializable {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-	public Long getTimeStamp() {
-		return timeStamp;
+	public OffsetDateTime getDataErro() {
+		return dataErro;
 	}
-	public void setTimeStamp(Long timeStamp) {
-		this.timeStamp = timeStamp;
+	public void setDataErro(OffsetDateTime dataErro) {
+		this.dataErro = dataErro;
 	}
 
 }
