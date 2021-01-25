@@ -102,6 +102,15 @@ public class CategoriaService {
 
 }
 
-
+/*
+  SQL
+  SELECT DISTINCT * FROM produto
+  INNER JOIN produto_categoria cat1 ON produto.id = cat1.produto_id
+  INNER JOIN categoria cat2 ON cat1.categoria.id = cat2.id
+  WHERE produto.nome LIKE ? AND cat2_id IN (?, ?)
   
- 
+  JPQL
+  SELECT DISTINCT obj FROM Produto obj
+  INNER JOIN obj.categorias cat
+  WHERE obj.nome LIKE %:nome% AND cat IN :categorias
+ */
