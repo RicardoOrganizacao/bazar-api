@@ -12,11 +12,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.ricbap.bazar.domain.enums.EstadoPagamento;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) // <--- Mapeamento de Heranca gerando uma tabela para cada subClasse
 @Table(name = "pagamento")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type") //<-- Anotacao para inserção de Pedido
 public abstract class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

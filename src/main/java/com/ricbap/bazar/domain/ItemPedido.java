@@ -38,9 +38,15 @@ public class ItemPedido implements Serializable {
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
+	public void setPedido(Pedido pedido) { // <-- Para associar Pedido nos ItemPedido
+		id.setPedido(pedido);
+	}
 	//@JsonIgnore
 	public Produto getProduto() {
 		return id.getProduto();
+	}
+	public void setProduto(Produto produto) { // <-- Para associar Produtos no ItemPedido
+		id.setProduto(produto);
 	}
 	
 	// Soma de subtotal deserializado pelo Json
